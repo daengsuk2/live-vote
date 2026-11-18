@@ -1,0 +1,28 @@
+spring:
+  config:
+    # .env holds the local secrets (not committed); Docker Compose reads the same file
+    import: optional:file:.env[.properties]
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:${DB_PORT:5433}/${DB_NAME:live}}
+    username: ${DB_USER:live}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: Asia/Seoul
+  thymeleaf:
+    cache: false
+
+server:
+  port: ${SERVER_PORT:8080}
+  address: 0.0.0.0
+
+app:
+  seed:
+    instructor-email: ${INSTRUCTOR_EMAIL:instructor@ync.ac.kr}
+    instructor-password: ${INSTRUCTOR_PASSWORD}
+    instructor-name: ${INSTRUCTOR_NAME:Instructor}
